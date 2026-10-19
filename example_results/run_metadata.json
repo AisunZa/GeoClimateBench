@@ -1,0 +1,19 @@
+{
+  "tool": "GeoClimateBench v0.1.0",
+  "environment": {
+    "python": "3.13.5",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "xarray": "2026.4.0"
+  },
+  "input_sha256": {
+    "hourly": "474cce137c5c98e6ea2e128be47468cb70d85d89fd2d5d833aaa8e4b12cb9dc4",
+    "stations": "8c31353c863cb590efe73a5f6b5e54ae8a5f96dbc690a2e1a11047615e491ca8"
+  },
+  "hourly_input": "data/hourly_synthetic.nc",
+  "stations_input": "data/stations_synthetic.csv",
+  "input_type": "SYNTHETIC FIXTURE \u2014 NOT ERA5-Land",
+  "target_year": 2022,
+  "target_month": 7,
+  "note": "Outputs describe the supplied inputs; synthetic fixtures cannot validate climate conclusions."
+}

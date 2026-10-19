@@ -1,0 +1,60 @@
+{
+  "project": "GeoClimateBench",
+  "version": "0.1.0",
+  "format": "Local standalone scientific task suite; not an official Harbor/Terminal-Bench format",
+  "fixture": "100% synthetic; NOT ERA5-Land or DWD data",
+  "tasks": [
+    {
+      "id": 1,
+      "slug": "task-01-daily-max",
+      "description": "Strict sampled daily max from Kelvin hourly input",
+      "requires": [
+        "data/hourly_synthetic.nc"
+      ],
+      "produces": [
+        "results/daily_max.nc"
+      ]
+    },
+    {
+      "id": 2,
+      "slug": "task-02-heatwave-detection",
+      "description": "1991-2020 p90 summer baseline and heatwave events",
+      "requires": [
+        "results/daily_max.nc"
+      ],
+      "produces": [
+        "results/heatwaves.nc"
+      ]
+    },
+    {
+      "id": 3,
+      "slug": "task-03-station-validation",
+      "description": "Haversine station matching and auditable bias/MAE/RMSE",
+      "requires": [
+        "results/daily_max.nc",
+        "data/stations_synthetic.csv"
+      ],
+      "produces": [
+        "results/station_pairs.csv",
+        "results/metrics.json"
+      ]
+    },
+    {
+      "id": 4,
+      "slug": "task-04-real-berlin-validation",
+      "description": "Optional real ERA5-Land/DWD July 2022 station comparison with independent source-derived grader",
+      "requires": [
+        "data/era5_berlin_2022_07_normalized.nc",
+        "data/dwd_berlin_2022_07.csv",
+        "downloads/tageswerte_KL_00433_*_hist.zip"
+      ],
+      "produces": [
+        "results/real_berlin_2022_07/daily_max.nc",
+        "results/real_berlin_2022_07/station_pairs.csv",
+        "results/real_berlin_2022_07/metrics.json",
+        "results/real_berlin_2022_07/real_run_metadata.json"
+      ],
+      "fixture_type": "optional user-supplied real inputs; not bundled or run by the default offline benchmark"
+    }
+  ]
+}

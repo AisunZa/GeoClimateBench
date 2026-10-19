@@ -1,0 +1,7 @@
+cff-version: 1.2.0
+message: "Please cite this repository and the original data providers if using real climate datasets."
+title: "GeoClimateBench: a local Earth Sciences scientific coding benchmark prototype"
+version: "0.1.0"
+date-released: "2026-10-19"
+license: MIT
+abstract: "Three linked offline scientific coding tasks for QC of temperature fields, heatwave identification and station-grid validation. The bundled example is entirely synthetic."

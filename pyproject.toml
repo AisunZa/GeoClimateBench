@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "geoclimatebench"
+version = "0.1.0"
+description = "Reproducible climate-extremes task suite for evaluating scientific coding agents"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "GeoClimateBench contributors"}]
+dependencies = [
+  "numpy>=1.24,<3",
+  "pandas>=2.0,<3",
+  "scipy>=1.10,<2",
+  "xarray>=2023.1",
+  "matplotlib>=3.7,<4"
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "ruff>=0.6"]
+real = ["h5netcdf>=1.2", "h5py>=3.10"]  # NetCDF-4/HDF5 reader and backend
+
+[project.scripts]
+geoclimatebench = "geoclimatebench.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["geoclimatebench*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 100

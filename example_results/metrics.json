@@ -1,0 +1,62 @@
+{
+  "all_stations": [
+    "SYN-BERLIN",
+    "SYN-FRANKFURT",
+    "SYN-HAMBURG",
+    "SYN-MUNICH",
+    "SYN-OUTSIDE"
+  ],
+  "by_station": {
+    "SYN-BERLIN": {
+      "bias_c": -0.9730303364415325,
+      "mae_c": 1.0583765120967745,
+      "max_abs_error_c": 6.015418945312497,
+      "n_pairs": 31,
+      "rmse_c": 1.4942074212639331
+    },
+    "SYN-FRANKFURT": {
+      "bias_c": 0.2820121440272175,
+      "mae_c": 0.7012580172631045,
+      "max_abs_error_c": 1.9245061035156255,
+      "n_pairs": 31,
+      "rmse_c": 0.8798572792020602
+    },
+    "SYN-HAMBURG": {
+      "bias_c": 0.27439196383568565,
+      "mae_c": 0.7224099042338714,
+      "max_abs_error_c": 1.6466416015625,
+      "n_pairs": 31,
+      "rmse_c": 0.8399506493957195
+    },
+    "SYN-MUNICH": {
+      "bias_c": 0.18410231933593763,
+      "mae_c": 0.5420672119140619,
+      "max_abs_error_c": 2.0723815917968764,
+      "n_pairs": 30,
+      "rmse_c": 0.6890026713835038
+    }
+  },
+  "comparison": "modeled_tmax_c - observed_tmax_c",
+  "grid_matching": "nearest great-circle (haversine) cell; no interpolation",
+  "limitations": [
+    "Hourly UTC maximum is not guaranteed to match the DWD TXK measurement-day definition.",
+    "Grid-cell temperature and point measurements differ in height, terrain and exposure.",
+    "Uncorrected nearest-neighbor matching can create representativeness error.",
+    "Synthetic demo observations are not independent real-world validation."
+  ],
+  "max_distance_km": 180.0,
+  "n_excluded": {
+    "missing_grid": 0,
+    "missing_observation": 1,
+    "outside_grid": 31,
+    "unavailable_date": 0
+  },
+  "n_input_rows": 155,
+  "overall": {
+    "bias_c": -0.060100353706173816,
+    "mae_c": 0.7577674292587652,
+    "max_abs_error_c": 6.015418945312497,
+    "n_pairs": 123,
+    "rmse_c": 1.0253839830697025
+  }
+}
