@@ -54,7 +54,7 @@ def daily_max_from_hourly(ds: xr.Dataset, min_valid_hours: int = 18) -> xr.Datas
     clean = ds.t2m.where(np.isfinite(ds.t2m) & (ds.t2m >= 180) & (ds.t2m <= 340))
     temp = clean.assign_coords(day=("time", time.floor("D").to_numpy()))
     counts = temp.groupby("day").count(dim="time").astype("int16")
-    counts.attrs = {"units": "hours", "description": "Count of QC-accepted hourly samples"}
+    counts.attrs = {"units": "1", "description": "Count of QC-accepted hourly samples"}
     maximum = temp.groupby("day").max(dim="time", skipna=True)
     tmax = (maximum - 273.15).where(counts >= min_valid_hours)
     return xr.Dataset(
