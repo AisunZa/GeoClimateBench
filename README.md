@@ -2,13 +2,13 @@
 
 **A reproducible Earth Sciences coding benchmark for climate extremes, numerical validation, and agent evaluation.**
 
-[![Scientific validation](https://img.shields.io/badge/tests-pytest-brightgreen)](tests/)
+[![Scientific validation](https://github.com/AisunZa/GeoClimateBench/actions/workflows/ci.yml/badge.svg)](https://github.com/AisunZa/GeoClimateBench/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](pyproject.toml)
 [![Mode](https://img.shields.io/badge/demo-synthetic%20data-orange)](docs/DATA_SOURCES.md)
 
 ## Why this project exists
 
-GeoClimateBench is a GitHub portfolio prototype of **three connected, terminal-based scientific programming tasks**. Each task has a precise contract, an executable reference solution and a local verifier. The aim is to evaluate whether an AI coding agent can handle climate-data units, spatial/temporal integrity, numerical methods, and scientific reporting — **not merely whether it produces a plausible-looking chart**.
+GeoClimateBench is a GitHub portfolio prototype featuring **three offline scientific programming tasks and a fourth optional real-data validation task**. Each task has a precise contract, an executable reference solution and a local verifier. The aim is to evaluate whether an AI coding agent can handle climate-data units, spatial/temporal integrity, numerical methods, and scientific reporting — **not merely whether it produces a plausible-looking chart**.
 
 This is **not** an official Terminal-Bench/Harbor submission, a secure hidden-test system, or a published climate study. The offline demo is **100% synthetic (NOT ERA5-Land and NOT real DWD observations)**. The code has input adapters for user-obtained real ERA5-Land-style NetCDF and DWD daily observation files; an optional, separately sourced Berlin July 2022 real-data case study and numerical grader are also available (Task 04).
 
@@ -19,6 +19,7 @@ This is **not** an official Terminal-Bench/Harbor submission, a secure hidden-te
 | [01 — QC & daily temperature](tasks/task-01-daily-max/instruction.md) | Convert hourly 2m temperature K to sampled daily max °C with QC and minimum completeness | `daily_max.nc` | Units, timestamps, completeness, grids, numerical error |
 | [02 — heatwave identification](tasks/task-02-heatwave-detection/instruction.md) | Compute 1991–2020 day-specific p90 using ±7-day calendar windows; detect ≥5 consecutive exceedance days | `heatwaves.nc` | Baseline coverage, percentiles, strict comparisons, runs |
 | [03 — station verification](tasks/task-03-station-validation/instruction.md) | Match station TXK-like records to nearest grid cell, apply exclusions, calculate MAE/bias/RMSE | `station_pairs.csv`, `metrics.json` | Geodesic distances, exclusions, statistics, output schema |
+| [04 — real-data validation](tasks/task-04-real-berlin-validation/instruction.md) | Compare ERA5-Land and DWD Berlin-Tempelhof temperatures with source QC | Daily maxima, station errors, provenance | Independent numerical and metadata grader |
 
 **Key scientific distinction:** the maximum of 24 hourly instantaneous values is an *hourly-sampled UTC daily maximum*, not necessarily the true daily maximum measured by a station. The comparison is explicitly subject to sampling, exposure, land-surface, and station reporting-period differences.
 
@@ -139,7 +140,7 @@ GeoClimateBench_v1/
 │   ├── era5.py             # standard NetCDF normalization
 │   ├── evaluate.py         # local numerical grader
 │   └── plots.py            # example visualization
-├── tasks/                  # three agent-facing task specifications
+├── tasks/                  # four task specifications
 ├── tests/                  # independent small numerical examples and integration tests
 ├── docs/                   # methods, provenance, limitations, interview preparation
 ├── example_results/        # verified precomputed SYNTHETIC example outputs
