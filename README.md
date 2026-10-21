@@ -12,6 +12,43 @@ GeoClimateBench is a GitHub portfolio prototype featuring **three offline scient
 
 This is **not** an official Terminal-Bench/Harbor submission, a secure hidden-test system, or a published climate study. The offline demo is **100% synthetic (NOT ERA5-Land and NOT real DWD observations)**. The code has input adapters for user-obtained real ERA5-Land-style NetCDF and DWD daily observation files; an optional, separately sourced Berlin July 2022 real-data case study and numerical grader are also available (Task 04).
 
+## Harbor Benchmarks — GeoClimateBench v2
+
+GeoClimateBench includes two reproducible scientific coding benchmarks
+implemented with Harbor 0.24.0, Docker, and independent numerical verifiers.
+
+| Benchmark | Oracle | Nop | Fault-injection controls |
+|---|---:|---:|---:|
+| [Daily Temperature QC](benchmarks/daily-max-qc/) | 1.0 | 0.0 | 5/5 passed |
+| [Heatwave P90](benchmarks/heatwave-p90/) | 1.0 | 0.0 | 12/12 passed |
+
+### Reproduce the evaluations
+
+From the repository root in Windows Anaconda PowerShell:
+
+```powershell
+harbor run -p ".\benchmarks\daily-max-qc" -a oracle
+harbor run -p ".\benchmarks\daily-max-qc" -a nop
+harbor run -p ".\benchmarks\heatwave-p90" -a oracle
+harbor run -p ".\benchmarks\heatwave-p90" -a nop
+
+.\.venv\Scripts\python.exe .\benchmarks\daily-max-qc\fault_injection.py
+.\.venv\Scripts\python.exe .\benchmarks\heatwave-p90\fault_injection.py
+```
+
+The fault-injection scripts require their corresponding local Docker
+verifier images.
+
+### Interpretation and limitations
+
+- All Harbor benchmark datasets are synthetic.
+- Verifiers are isolated from agent environments, but their source is public.
+- Oracle and Nop runs are controls, not independent AI-agent evaluations.
+- Fault injection checks selected scientific errors, not exhaustive correctness.
+- No independent AI coding-agent performance results are available yet.
+
+Results verified locally on October 21, 2026.
+
 ## Scientific tasks
 
 | Task | Scientific challenge | Key output | Independent verifier |
