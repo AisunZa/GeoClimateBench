@@ -1,0 +1,41 @@
+﻿name: harbor-verifier-regression
+
+on:
+  push:
+    branches:
+      - feature/harbor-agent-evaluation
+    paths:
+      - "benchmarks/**"
+      - ".github/workflows/harbor-verifier-regression.yml"
+  pull_request:
+    paths:
+      - "benchmarks/**"
+      - ".github/workflows/harbor-verifier-regression.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  scientific-fault-injection:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Build Daily QC verifier
+        run: docker build -t geoclimatebench-qc-verifier ./benchmarks/daily-max-qc/tests
+
+      - name: Run Daily QC fault injection
+        run: python benchmarks/daily-max-qc/fault_injection.py
+
+      - name: Build Heatwave verifier
+        run: docker build -t geoclimatebench-heatwave-verifier ./benchmarks/heatwave-p90/tests
+
+      - name: Run Heatwave fault injection
+        run: python benchmarks/heatwave-p90/fault_injection.py
