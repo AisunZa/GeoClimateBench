@@ -210,8 +210,8 @@ The MIT licence applies to **original code in this repository**. It does not cha
 ## Roadmap and future extensions
 
 - Extend the single-station real ERA5-Land/DWD exploratory case to more locations/months; audit additional station metadata and quality flags.
-- Fully isolated agent/verifier container tasks compliant with the chosen benchmark runner's exact format.
+- Extend the two existing Docker-isolated Harbor benchmarks with additional scientific tasks and independent AI-agent trials.
 - External-agent trials and empirical pass/fail rates to quantify task difficulty.
 - Expanded high-coverage dates and event-boundary handling beyond the July prototype.
 
-**Status:** v0.1 prototype plus optional real-data Task 04 (source-derived local grader, real-data provenance/QC). The 3-task synthetic demo remains fully offline; external-agent trials and longer-term real climate-extremes validation are not yet implemented.
+**Status:** GeoClimateBench v2 includes two validated Harbor benchmarks (Daily Temperature QC and Heatwave P90), Oracle/Nop controls, 17 successful fault-injection controls, and passing GitHub Actions regression CI. The original three-task synthetic demo and optional real-data Task 04 remain available. Independent generative AI-agent trials have not yet been completed.
