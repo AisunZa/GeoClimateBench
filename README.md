@@ -45,7 +45,7 @@ verifier images.
 - Verifiers are isolated from agent environments, but their source is public.
 - Oracle and Nop runs are controls, not independent AI-agent evaluations.
 - Fault injection checks selected scientific errors, not exhaustive correctness.
-- No independent AI coding-agent performance results are available yet.
+- Two exploratory Qwen2.5-Coder 3B / Terminus 2 trials completed with reward 0.0. These single-trial results do not establish reliable pass rates. See the [local AI evaluation report](docs/LOCAL_MODEL_EVALUATION.md).
 
 Results verified locally on October 21, 2026.
 
@@ -214,4 +214,4 @@ The MIT licence applies to **original code in this repository**. It does not cha
 - External-agent trials and empirical pass/fail rates to quantify task difficulty.
 - Expanded high-coverage dates and event-boundary handling beyond the July prototype.
 
-**Status:** GeoClimateBench v2 includes two validated Harbor benchmarks (Daily Temperature QC and Heatwave P90), Oracle/Nop controls, 17 successful fault-injection controls, and passing GitHub Actions regression CI. The original three-task synthetic demo and optional real-data Task 04 remain available. Independent generative AI-agent trials have not yet been completed.
+**Status:** GeoClimateBench v2 includes two validated Harbor benchmarks (Daily Temperature QC and Heatwave P90), Oracle/Nop controls, 17 successful fault-injection controls, and passing GitHub Actions regression CI. The original three-task synthetic demo and optional real-data Task 04 remain available. Two exploratory independent Qwen agent trials have been completed; the human-assisted repair is documented separately.
