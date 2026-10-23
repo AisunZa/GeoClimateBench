@@ -14,13 +14,14 @@ This is **not** an official Terminal-Bench/Harbor submission, a secure hidden-te
 
 ## Harbor Benchmarks — GeoClimateBench v2
 
-GeoClimateBench includes two reproducible scientific coding benchmarks
+GeoClimateBench includes three reproducible scientific coding benchmarks
 implemented with Harbor 0.24.0, Docker, and independent numerical verifiers.
 
-| Benchmark | Oracle | Nop | Fault-injection controls |
+| Benchmark | Oracle | Nop | Scientific controls |
 |---|---:|---:|---:|
 | [Daily Temperature QC](benchmarks/daily-max-qc/) | 1.0 | 0.0 | 5/5 passed |
 | [Heatwave P90](benchmarks/heatwave-p90/) | 1.0 | 0.0 | 12/12 passed |
+| [Station-Grid Validation](benchmarks/station-grid-validation/) | 1.0 | 0.0 | 4 unseen fixtures; 20 invalid inputs; 6 fault detections passed |
 
 ### Reproduce the evaluations
 
@@ -31,9 +32,12 @@ harbor run -p ".\benchmarks\daily-max-qc" -a oracle
 harbor run -p ".\benchmarks\daily-max-qc" -a nop
 harbor run -p ".\benchmarks\heatwave-p90" -a oracle
 harbor run -p ".\benchmarks\heatwave-p90" -a nop
+harbor run -p ".\benchmarks\station-grid-validation" -a oracle
+harbor run -p ".\benchmarks\station-grid-validation" -a nop
 
 .\.venv\Scripts\python.exe .\benchmarks\daily-max-qc\fault_injection.py
 .\.venv\Scripts\python.exe .\benchmarks\heatwave-p90\fault_injection.py
+.\.venv\Scripts\python.exe .\benchmarks\station-grid-validation\tests\regression_cases.py --solver .\benchmarks\station-grid-validation\solution\solve_station.py --verifier .\benchmarks\station-grid-validation\tests\verify.py --workers 2
 ```
 
 The fault-injection scripts require their corresponding local Docker
@@ -47,7 +51,7 @@ verifier images.
 - Fault injection checks selected scientific errors, not exhaustive correctness.
 - Two exploratory Qwen2.5-Coder 3B / Terminus 2 trials completed with reward 0.0. These single-trial results do not establish reliable pass rates. See the [local AI evaluation report](docs/LOCAL_MODEL_EVALUATION.md).
 
-Results verified locally on October 21, 2026.
+Daily QC and Heatwave results verified locally on October 21, 2026. Station-grid Oracle/Nop and 30 scientific regression controls verified locally on October 22?23, 2026. GitHub Actions verification of Benchmark 03 remains pending.
 
 ## Scientific tasks
 
@@ -214,4 +218,4 @@ The MIT licence applies to **original code in this repository**. It does not cha
 - External-agent trials and empirical pass/fail rates to quantify task difficulty.
 - Expanded high-coverage dates and event-boundary handling beyond the July prototype.
 
-**Status:** GeoClimateBench v2 includes two validated Harbor benchmarks (Daily Temperature QC and Heatwave P90), Oracle/Nop controls, 17 successful fault-injection controls, and passing GitHub Actions regression CI. The original three-task synthetic demo and optional real-data Task 04 remain available. Two exploratory independent Qwen agent trials have been completed; the human-assisted repair is documented separately.
+**Status:** GeoClimateBench v2 includes three locally validated Harbor benchmarks (Daily Temperature QC and Heatwave P90), Oracle/Nop controls, 17 successful fault-injection controls, and passing GitHub Actions regression CI. The original three-task synthetic demo and optional real-data Task 04 remain available. Two exploratory independent Qwen agent trials have been completed; the human-assisted repair is documented separately.
