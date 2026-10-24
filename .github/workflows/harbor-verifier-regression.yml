@@ -1,0 +1,54 @@
+﻿name: harbor-verifier-regression
+
+on:
+  push:
+    branches:
+      - feature/harbor-agent-evaluation
+    paths:
+      - "benchmarks/**"
+      - ".github/workflows/harbor-verifier-regression.yml"
+  pull_request:
+    paths:
+      - "benchmarks/**"
+      - ".github/workflows/harbor-verifier-regression.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  scientific-fault-injection:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Build Daily QC verifier
+        run: docker build -t geoclimatebench-qc-verifier ./benchmarks/daily-max-qc/tests
+
+      - name: Run Daily QC fault injection
+        run: python benchmarks/daily-max-qc/fault_injection.py
+
+      - name: Build Heatwave verifier
+        run: docker build -t geoclimatebench-heatwave-verifier ./benchmarks/heatwave-p90/tests
+
+      - name: Run Heatwave fault injection
+        run: python benchmarks/heatwave-p90/fault_injection.py
+
+      - name: Build Station-grid verifier
+        run: docker build -t geoclimatebench-station-verifier ./benchmarks/station-grid-validation/tests
+
+      - name: Run Station-grid scientific controls
+        run: |
+          docker run --rm --network none \
+            -v "${{ github.workspace }}/benchmarks/station-grid-validation/solution/solve_station.py:/app/solve.py:ro" \
+            geoclimatebench-station-verifier \
+            bash -c 'set -euo pipefail
+              python /app/solve.py --daily /tests/data/daily_max.nc --stations /tests/data/stations_synthetic.csv --output-dir /app/results
+              python /tests/verify.py --daily /tests/data/daily_max.nc --stations /tests/data/stations_synthetic.csv --pairs /app/results/station_pairs.csv --metrics /app/results/metrics.json
+              python /tests/regression_cases.py --solver /app/solve.py --verifier /tests/verify.py --workers 2'
